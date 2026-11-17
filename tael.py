@@ -194,8 +194,10 @@ def _tael_strøm(strøm, undersoeg, etree):
         aarkilde[kilde] += 1
         vet_aarti[aarti(aar)] += 1
         vet_aargang[str(aar)] += 1
-        maerke = (post.get("maerke") or "Ukendt").strip().title()
-        model = (post.get("model") or "").strip()
+        maerke = (post.get("maerke") or "Ukendt").strip()
+        if len(maerke) > 3:  # MG og BMW skal blive store bogstaver
+            maerke = maerke.title()
+        model = (post.get("model") or "").strip().strip("-").strip()
         vet_maerke[maerke] += 1
         if model:
             vet_model[f"{maerke} {model}"] += 1
