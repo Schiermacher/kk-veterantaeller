@@ -39,7 +39,10 @@ FELTER = {
     "maerke": ["KoeretoejMaerkeTypeNavn"],
     "model": ["KoeretoejModelTypeNavn"],
     "anvendelse": ["KoeretoejAnvendelseNavn"],
+    "farve": ["FarveTypeNavn"],
+    "drivkraft": ["DrivkraftTypeNavn"],
 }
+MAERKE_ALIAS = {"Vw": "Volkswagen", "Mercedes": "Mercedes-Benz", "Mercedes Benz": "Mercedes-Benz"}
 POST_TAG = "Statistik"
 
 
@@ -155,6 +158,10 @@ def _tael_strøm(strøm, undersoeg, etree):
     vet_anvendelse = Counter()
     aarkilde = Counter()
     naeste_aargang = Counter()  # dem, der bliver veteraner 1. januar
+    vet_farve = Counter()
+    vet_drivkraft = Counter()
+    aeldste = []  # (dato, mærke, model)
+    feltnavne = Counter()
 
     for _, elem in etree.iterparse(strøm, events=("end",), tag="{*}" + POST_TAG, huge_tree=True):
         total_poster += 1
@@ -163,6 +170,8 @@ def _tael_strøm(strøm, undersoeg, etree):
             print("--- post", total_poster)
         for d in elem.iter():
             n = lokal(d.tag)
+            if total_poster <= 200:
+                feltnavne[n] += 1
             if undersoeg and d.text and d.text.strip():
                 print(f"  {n} = {d.text.strip()[:60]}")
             k = opslag.get(n)
@@ -197,11 +206,16 @@ def _tael_strøm(strøm, undersoeg, etree):
         maerke = (post.get("maerke") or "Ukendt").strip()
         if len(maerke) > 3:  # MG og BMW skal blive store bogstaver
             maerke = maerke.title()
+        maerke = MAERKE_ALIAS.get(maerke, maerke)
         model = (post.get("model") or "").strip().strip("-").strip()
         vet_maerke[maerke] += 1
         if model:
             vet_model[f"{maerke} {model}"] += 1
         vet_anvendelse[post.get("anvendelse", "Ukendt")] += 1
+        vet_farve[post.get("farve", "Ukendt")] += 1
+        vet_drivkraft[post.get("drivkraft", "Ukendt")] += 1
+        if aar <= 1915:
+            aeldste.append(((post.get("foerste_reg") or str(aar))[:10], maerke, model))
 
         if total_poster % 1_000_000 == 0:
             print(f"  {total_poster:,} poster læst".replace(",", "."), flush=True)
@@ -223,6 +237,12 @@ def _tael_strøm(strøm, undersoeg, etree):
         "pr_aargang": dict(sorted(vet_aargang.items())),
         "top_maerker": vet_maerke.most_common(25),
         "top_modeller": vet_model.most_common(25),
+        "alle_maerker": dict(vet_maerke.most_common()),
+        "modeller_min_10": {k: v for k, v in vet_model.most_common() if v >= 10},
+        "farver": dict(vet_farve.most_common()),
+        "drivkraft": dict(vet_drivkraft.most_common()),
+        "aeldste": [{"dato": d, "maerke": m, "model": mo} for d, m, mo in sorted(aeldste)[:30]],
+        "feltnavne_eksempel": sorted(feltnavne),
         "anvendelse": dict(vet_anvendelse.most_common(10)),
         "aarstal_kilde": dict(aarkilde),
         "bliver_veteran_1_januar": sum(naeste_aargang.values()),
@@ -245,7 +265,8 @@ def main():
     latest_sti = os.path.join(a.data, "latest.json")
     if not a.undersoeg and os.path.exists(latest_sti):
         with open(latest_sti, encoding="utf-8") as f:
-            if json.load(f).get("fil") == filnavn:
+            gammel = json.load(f)
+            if gammel.get("fil") == filnavn and "farver" in gammel:
                 print("Denne eksport er allerede talt. Intet at gøre.")
                 return
 
