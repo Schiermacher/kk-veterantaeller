@@ -47,26 +47,78 @@ def lokal(tag):
     return tag.rsplit("}", 1)[-1] if isinstance(tag, str) else ""
 
 
-def hent_nyeste(maal_mappe):
-    ftp = ftplib.FTP(FTP_HOST, timeout=120)
+def _forbind():
+    ftp = ftplib.FTP(FTP_HOST, timeout=300)
     ftp.login()
     ftp.cwd(FTP_DIR)
+    ftp.voidcmd("TYPE I")
+    return ftp
+
+
+def hent_nyeste(maal_mappe, forsoeg=40):
+    """Henter nyeste eksport. Går forbindelsen i stå, genoptages overførslen,
+    hvor den slap (FTP REST), i stedet for at starte forfra."""
+    ftp = _forbind()
     navne = sorted(n for n in ftp.nlst() if n.lower().endswith(".zip"))
     if not navne:
         sys.exit("Ingen zip-filer fundet på FTP-serveren.")
     navn = navne[-1]
+    try:
+        total = ftp.size(navn)
+    except ftplib.all_errors:
+        total = None
+    try:
+        ftp.quit()
+    except ftplib.all_errors:
+        pass
+
     sti = os.path.join(maal_mappe, navn)
-    if not os.path.exists(sti):
-        print(f"Henter {navn} …", flush=True)
-        with open(sti + ".del", "wb") as f:
-            ftp.retrbinary("RETR " + navn, f.write, blocksize=1024 * 1024)
-        os.replace(sti + ".del", sti)
-    ftp.quit()
+    if os.path.exists(sti):
+        return sti
+    del_sti = sti + ".del"
+    gb = lambda b: f"{b / 1e9:.2f} GB"
+    print(f"Henter {navn}" + (f" ({gb(total)})" if total else "") + " …", flush=True)
+
+    for nr in range(1, forsoeg + 1):
+        har = os.path.getsize(del_sti) if os.path.exists(del_sti) else 0
+        if total and har >= total:
+            break
+        try:
+            ftp = _forbind()
+            with open(del_sti, "ab") as f:
+                naeste = [har + 500_000_000]
+
+                def skriv(blok):
+                    f.write(blok)
+                    if f.tell() >= naeste[0]:
+                        print(f"  {gb(f.tell())} hentet", flush=True)
+                        naeste[0] += 500_000_000
+
+                ftp.retrbinary("RETR " + navn, skriv, blocksize=1024 * 1024, rest=har or None)
+            try:
+                ftp.quit()
+            except ftplib.all_errors:
+                pass
+            if not total or os.path.getsize(del_sti) >= total:
+                break
+        except (OSError, EOFError, ftplib.all_errors) as e:
+            print(f"  Forbindelsen stoppede ved {gb(os.path.getsize(del_sti))} ({type(e).__name__}). Fortsætter – forsøg {nr + 1}.", flush=True)
+            try:
+                ftp.close()
+            except Exception:
+                pass
+    else:
+        sys.exit("Kunne ikke hente hele filen efter mange forsøg.")
+
+    if total and os.path.getsize(del_sti) != total:
+        sys.exit(f"Filen har forkert størrelse: {os.path.getsize(del_sti)} af {total} bytes.")
+    os.replace(del_sti, sti)
+    print(f"Hentet: {gb(os.path.getsize(sti))}", flush=True)
     return sti
 
 
 def aar_af(post):
-    for kilde in ("modelaar", "foerste_reg"):
+    for kilde in ("foerste_reg", "modelaar"):
         v = post.get(kilde) or ""
         m = re.match(r"(\d{4})", v)
         if m:
