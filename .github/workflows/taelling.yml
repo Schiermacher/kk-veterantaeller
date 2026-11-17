@@ -1,0 +1,33 @@
+name: Veterantælling
+
+on:
+  schedule:
+    - cron: "23 4 * * 1,4"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  tael:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install lxml
+
+      - name: Tæl veteranbiler i Motorregistret
+        run: python3 tael.py --mappe "$RUNNER_TEMP/eksport"
+
+      - name: Gem resultatet
+        run: |
+          git config user.name "Klassikerkanalen"
+          git config user.email "kontakt@klassikerkanalen.dk"
+          git add data/
+          git diff --cached --quiet || git commit -m "Veterantælling $(date +%F)"
+          git push
