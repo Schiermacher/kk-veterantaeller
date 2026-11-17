@@ -101,7 +101,7 @@ def hent_nyeste(maal_mappe, forsoeg=40):
                 pass
             if not total or os.path.getsize(del_sti) >= total:
                 break
-        except (OSError, EOFError, ftplib.all_errors) as e:
+        except (OSError, EOFError) + tuple(ftplib.all_errors) as e:
             print(f"  Forbindelsen stoppede ved {gb(os.path.getsize(del_sti))} ({type(e).__name__}). Fortsætter – forsøg {nr + 1}.", flush=True)
             try:
                 ftp.close()
