@@ -1,0 +1,354 @@
+{
+ "kilde": "Motorregistret (DMR), Motorstyrelsens ugentlige eksport",
+ "fil": "ESStatistikListeModtag-20261115-200414.zip",
+ "eksportdato": "2026-11-15",
+ "opgjort": "2026-11-17T13:43:22+00:00",
+ "aendring_siden_sidst": null,
+ "graense_aar": 35,
+ "aargang_til_og_med": 1991,
+ "poster_i_eksport": 14169921,
+ "veteranbiler_registreret": 62475,
+ "personbiler_status": {
+  "Afmeldt": 1131417,
+  "Registreret": 62475,
+  "Ukendt": 2186,
+  "UnderUdarbejdelse": 54
+ },
+ "alle_koeretoejsarter_registreret": {
+  "Påhængsvogn": 170309,
+  "Personbil": 62475,
+  "Motorcykel": 58851,
+  "Campingvogn": 20561,
+  "Traktor": 20083,
+  "Varebil": 5503,
+  "Lastbil": 1638,
+  "Påhængsredskab": 1226,
+  "Traktorpåhængsvogn": 605,
+  "Sættevogn": 278,
+  "Stor personbil": 271,
+  "Stor knallert": 15,
+  "Blokvogn": 14,
+  "Motorredskab": 14,
+  "Motordrevet blokvogn": 4
+ },
+ "pr_aarti": {
+  "1900'erne": 11,
+  "1910'erne": 56,
+  "1920'erne": 630,
+  "1930'erne": 1876,
+  "1940'erne": 549,
+  "1950'erne": 4881,
+  "1960'erne": 17388,
+  "1970'erne": 18686,
+  "1980'erne": 14149,
+  "1990'erne": 4249
+ },
+ "pr_aargang": {
+  "1902": 1,
+  "1903": 2,
+  "1904": 1,
+  "1906": 1,
+  "1907": 1,
+  "1908": 2,
+  "1909": 3,
+  "1910": 5,
+  "1911": 1,
+  "1912": 6,
+  "1913": 8,
+  "1914": 11,
+  "1915": 11,
+  "1916": 2,
+  "1917": 3,
+  "1918": 3,
+  "1919": 6,
+  "1920": 8,
+  "1921": 9,
+  "1922": 18,
+  "1923": 36,
+  "1924": 35,
+  "1925": 46,
+  "1926": 61,
+  "1927": 52,
+  "1928": 119,
+  "1929": 246,
+  "1930": 366,
+  "1931": 393,
+  "1932": 166,
+  "1933": 106,
+  "1934": 124,
+  "1935": 124,
+  "1936": 102,
+  "1937": 153,
+  "1938": 147,
+  "1939": 195,
+  "1940": 24,
+  "1941": 34,
+  "1942": 25,
+  "1943": 30,
+  "1944": 19,
+  "1945": 16,
+  "1946": 100,
+  "1947": 100,
+  "1948": 100,
+  "1949": 101,
+  "1950": 165,
+  "1951": 170,
+  "1952": 248,
+  "1953": 407,
+  "1954": 500,
+  "1955": 448,
+  "1956": 578,
+  "1957": 721,
+  "1958": 694,
+  "1959": 950,
+  "1960": 988,
+  "1961": 1005,
+  "1962": 1208,
+  "1963": 1042,
+  "1964": 1425,
+  "1965": 2009,
+  "1966": 2146,
+  "1967": 2430,
+  "1968": 2369,
+  "1969": 2766,
+  "1970": 2628,
+  "1971": 2343,
+  "1972": 2290,
+  "1973": 2564,
+  "1974": 1620,
+  "1975": 1284,
+  "1976": 1484,
+  "1977": 1409,
+  "1978": 1540,
+  "1979": 1524,
+  "1980": 944,
+  "1981": 858,
+  "1982": 978,
+  "1983": 1216,
+  "1984": 1358,
+  "1985": 1544,
+  "1986": 1868,
+  "1987": 1877,
+  "1988": 1626,
+  "1989": 1880,
+  "1990": 2176,
+  "1991": 2073
+ },
+ "top_maerker": [
+  [
+   "Volkswagen",
+   7988
+  ],
+  [
+   "Ford",
+   6878
+  ],
+  [
+   "Mercedes-Benz",
+   4687
+  ],
+  [
+   "Volvo",
+   4168
+  ],
+  [
+   "Chevrolet",
+   3391
+  ],
+  [
+   "Opel",
+   3069
+  ],
+  [
+   "Mg",
+   2727
+  ],
+  [
+   "Morris",
+   2405
+  ],
+  [
+   "Porsche",
+   2341
+  ],
+  [
+   "Citroën",
+   2017
+  ],
+  [
+   "Fiat",
+   1818
+  ],
+  [
+   "Bmw",
+   1743
+  ],
+  [
+   "Triumph",
+   1304
+  ],
+  [
+   "Toyota",
+   1216
+  ],
+  [
+   "Jaguar",
+   1150
+  ],
+  [
+   "Austin",
+   947
+  ],
+  [
+   "Pontiac",
+   864
+  ],
+  [
+   "Cadillac",
+   759
+  ],
+  [
+   "Buick",
+   758
+  ],
+  [
+   "Vw",
+   691
+  ],
+  [
+   "Saab",
+   598
+  ],
+  [
+   "Mazda",
+   581
+  ],
+  [
+   "Alfa Romeo",
+   550
+  ],
+  [
+   "Peugeot",
+   528
+  ],
+  [
+   "Renault",
+   496
+  ]
+ ],
+ "top_modeller": [
+  [
+   "Ford MUSTANG",
+   2057
+  ],
+  [
+   "Volkswagen GOLF",
+   1769
+  ],
+  [
+   "Chevrolet CORVETTE",
+   1183
+  ],
+  [
+   "Mg B",
+   1046
+  ],
+  [
+   "Opel KADETT",
+   1040
+  ],
+  [
+   "Citroën 2 CV",
+   1022
+  ],
+  [
+   "Volkswagen 113",
+   948
+  ],
+  [
+   "Volvo 121",
+   931
+  ],
+  [
+   "Morris MASCOT",
+   885
+  ],
+  [
+   "Porsche 911",
+   834
+  ],
+  [
+   "Morris 1000",
+   820
+  ],
+  [
+   "Ford -",
+   651
+  ],
+  [
+   "Mercedes-Benz -",
+   651
+  ],
+  [
+   "Volkswagen 1303",
+   617
+  ],
+  [
+   "Ford ESCORT",
+   611
+  ],
+  [
+   "Fiat 500",
+   581
+  ],
+  [
+   "Chevrolet CAMARO",
+   515
+  ],
+  [
+   "Mercedes-Benz 190",
+   495
+  ],
+  [
+   "Ford A",
+   493
+  ],
+  [
+   "Opel REKORD",
+   464
+  ],
+  [
+   "Chevrolet -",
+   437
+  ],
+  [
+   "Mercedes-Benz 230",
+   436
+  ],
+  [
+   "Volkswagen -",
+   430
+  ],
+  [
+   "Triumph SPITFIRE",
+   425
+  ],
+  [
+   "Austin HEALEY",
+   404
+  ]
+ ],
+ "anvendelse": {
+  "Privat personkørsel": 61179,
+  "Beboelse": 1276,
+  "Taxikørsel": 5,
+  "Rustvognskørsel": 5,
+  "Ambulancekørsel": 5,
+  "Limousinekørsel": 4,
+  "Særlig anvendelse": 1
+ },
+ "aarstal_kilde": {
+  "foerste_reg": 62475
+ },
+ "bliver_veteran_1_januar": 1568
+}

@@ -1,0 +1,12 @@
+[
+ {
+  "dato": "2026-11-15",
+  "veteranbiler_registreret": 62475,
+  "personbiler_status": {
+   "Afmeldt": 1131417,
+   "Registreret": 62475,
+   "Ukendt": 2186,
+   "UnderUdarbejdelse": 54
+  }
+ }
+]
