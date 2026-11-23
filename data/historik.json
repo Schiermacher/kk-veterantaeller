@@ -8,5 +8,15 @@
    "Ukendt": 2186,
    "UnderUdarbejdelse": 54
   }
+ },
+ {
+  "dato": "2026-11-22",
+  "veteranbiler_registreret": 62451,
+  "personbiler_status": {
+   "Afmeldt": 1131469,
+   "Registreret": 62451,
+   "Ukendt": 2177,
+   "UnderUdarbejdelse": 56
+  }
  }
 ]
